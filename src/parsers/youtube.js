@@ -6,7 +6,8 @@ const YOUTUBE_KEY = 'AIzaSyDjnFOup378dHY1HaQCWToCkNc6UieZVW4'
 
 class YoutubeParser extends GenericParser {
   constructor () {
-    super()
+    super();
+    console.log("I am a youtube parser");
     this.Youtube = new Youtube()
     this.Youtube.setKey(YOUTUBE_KEY)
     this._getById = Promise.denodeify(this.Youtube.getById)

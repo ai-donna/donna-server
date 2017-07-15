@@ -2,6 +2,7 @@ import { Router } from 'express'
 import user from './user'
 import auth from './auth'
 import resource from './resource'
+import nlp from './nlp'
 
 const router = new Router()
 
@@ -31,5 +32,6 @@ const router = new Router()
 router.use('/users', user)
 router.use('/auth', auth)
 router.use('/resources', resource)
+router.use('/nlp', nlp)
 
 export default router

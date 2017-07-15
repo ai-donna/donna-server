@@ -4,7 +4,7 @@ import { Resource } from '.'
 import { getParser } from '../../utils/parser'
 import elasticsearch from 'elasticsearch'
 
-const client = new elasticsearch.Client({ host: 'localhost:9200', log: 'trace' });
+const client = new elasticsearch.Client({ host: 'localhost:9200', log: 'trace' })
 
 export const create = ({ body }, res, next) =>
   Resource.create(body)
@@ -40,16 +40,19 @@ export const destroy = ({ params }, res, next) =>
     .then(success(res, 204))
     .catch(next)
 
-export const interpret = ({ body }, res, next) =>
+export const interpret = ({ body }, res, next) => {
   Promise.resolve(body.url)
     .then(getParser.bind(this))
     .then((parser) => parser.parse(body.url))
-    .then(res => {
+    .then(response => {
       client.create({
-      index: 'donna',
-      type : JSON.parse(res).request.api,
-      id   : JSON.parse(res).objects[0].pageUrl,
-      body : JSON.parse(res)
-    })})
+        index: 'donna',
+        type: response.request.api,
+        id: response.objects[0].pageUrl,
+        body: response
+      })
+      return response
+    })
     .then(success(res))
     .catch(next)
+}

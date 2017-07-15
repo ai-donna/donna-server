@@ -13,7 +13,7 @@ class TwitterParser extends GenericParser {
     })
 
     this.statusRegex = /https:\/\/twitter.com\/.*\/status\/(.*)/
-    this.timelineRegex = /https:\/\/twitter.com\/(.*)$/
+    this.timelineRegex = /https:\/\/twitter.com\/([^\/]*)$/
   }
 
   parse = (url) =>

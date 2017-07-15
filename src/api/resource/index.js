@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import { middleware as query } from 'querymen'
 import { token } from '../../services/passport'
-import { create, index, show, update, destroy } from './controller'
+import { create, index, show, update, destroy, interpret } from './controller'
 export Resource, { schema } from './model'
 
 const router = new Router()
@@ -64,5 +64,16 @@ router.put('/:id',
 router.delete('/:id',
   token({ required: true, roles: ['admin'] }),
   destroy)
+
+/**
+ * @api {post} /resources/interpret
+ * @apiName RetrieveResource
+ * @apiGroup Resource
+ * @apiSuccess {Object} return URLs information.
+ * @apiError {Object} 400 Some parameters may contain invalid values.
+ * @apiError 404 Resource not found.
+ */
+router.post('/interpret',
+  interpret)
 
 export default router

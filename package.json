@@ -50,6 +50,7 @@
     "bluebird": "^3.4.0",
     "body-parser": "^1.15.1",
     "bodymen": "^1.0.1",
+    "cheerio": "^1.0.0-rc.2",
     "compression": "^1.6.2",
     "cors": "^2.7.1",
     "express": "^4.13.4",
@@ -63,9 +64,10 @@
     "passport-http": "^0.3.0",
     "passport-http-bearer": "^1.0.1",
     "passport-jwt": "^2.1.0",
+    "promise": "^8.0.1",
     "querymen": "^2.0.0",
     "rand-token": "^0.3.0",
-    "request": "^2.74.0",
-    "request-promise": "^4.1.1"
+    "request": "^2.81.0",
+    "request-promise": "^4.2.1"
   }
 }

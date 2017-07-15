@@ -2,6 +2,9 @@ import _ from 'lodash'
 import { success, notFound } from '../../services/response/'
 import { Resource } from '.'
 import { getParser } from '../../utils/parser'
+import elasticsearch from 'elasticsearch'
+
+const client = new elasticsearch.Client({ host: 'localhost:9200', log: 'trace' });
 
 export const create = ({ body }, res, next) =>
   Resource.create(body)
@@ -41,5 +44,12 @@ export const interpret = ({ body }, res, next) =>
   Promise.resolve(body.url)
     .then(getParser.bind(this))
     .then((parser) => parser.parse(body.url))
+    .then(res => {
+      client.create({
+      index: 'donna',
+      type : JSON.parse(res).request.api,
+      id   : JSON.parse(res).objects[0].pageUrl,
+      body : JSON.parse(res)
+    })})
     .then(success(res))
     .catch(next)

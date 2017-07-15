@@ -7,7 +7,8 @@ import api from './api'
 const app = express(api)
 const server = http.createServer(app)
 
-mongoose.connect(mongo.uri)
+mongoose.connect(mongo.uri);
+
 
 setImmediate(() => {
   server.listen(port, ip, () => {

@@ -43,12 +43,16 @@ export const destroy = ({ params }, res, next) =>
 export const interpret = ({ body }, res, next) => {
   Promise.resolve(body.url)
     .then(getParser.bind(this))
-    .then((parser) => parser.parse(body.url))
+    .then((parser) => parser.parse(body.url).then(parser._format))
+    .then(response => {
+      Resource.create(response)
+      return response
+    })
     .then(response => {
       client.create({
         index: 'donna',
-        type: response.request.api,
-        id: response.objects[0].pageUrl,
+        type: response.type,
+        id: response.id,
         body: response
       })
       return response

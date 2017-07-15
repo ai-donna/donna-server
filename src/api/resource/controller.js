@@ -1,8 +1,7 @@
 import _ from 'lodash'
-import request from 'request-promise'
 import { success, notFound } from '../../services/response/'
 import { Resource } from '.'
-import { readHtml } from '../../utils/html-parser'
+import { getParser } from '../../utils/parser'
 
 export const create = ({ body }, res, next) =>
   Resource.create(body)
@@ -38,10 +37,9 @@ export const destroy = ({ params }, res, next) =>
     .then(success(res, 204))
     .catch(next)
 
-export const interpret = ({ body }, res, next) => {
-  console.log(body)
-  return request(body.url)
-    .then(readHtml.bind(this))
+export const interpret = ({ body }, res, next) =>
+  Promise.resolve(body.url)
+    .then(getParser.bind(this))
+    .then((parser) => parser.parse(body.url))
     .then(success(res))
     .catch(next)
-}

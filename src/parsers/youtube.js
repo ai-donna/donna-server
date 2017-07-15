@@ -30,11 +30,6 @@ class YoutubeParser extends GenericParser {
         return id
       })
 
-  _print = (str) => {
-    console.log(str)
-    return str
-  }
-
 }
 
 export default YoutubeParser

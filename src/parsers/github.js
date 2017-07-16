@@ -31,10 +31,12 @@ class GithubParser extends GenericParser {
             response.title = $('#readme h1').first().text()
             return Promise.resolve(response)
           })
+          .catch((err) => console.error(err))
       })
 
-  _format = (response) => _.assign({
+  _format = (response, url) => _.assign({
     type: 'github',
+    url,
     id: response.url
   }, response)
 }

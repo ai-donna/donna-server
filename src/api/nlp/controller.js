@@ -34,6 +34,8 @@ const performAction = (response) => {
       return resourceSearch(response)
     case 'resource.search.by.topic':
       return resourceSearchByTopic(response)
+    case 'resource.only':
+      return resourceOnly(response)
     case '':
     default:
       return response
@@ -50,6 +52,20 @@ const resourceSearchByTopic = (response) =>
     // })
     .then(result =>
       Resource.find({title: {$regex: result.parameters.topic, $options: 'i'}}))
+    .then(searchResults => _.assign({
+      searchResults
+    }, response))
+
+const resourceOnly = (response) =>
+  Promise.resolve(response.result)
+    // .then(result => {
+    //   return client.search({
+    //     index: 'donna',
+    //     q: `${result.parameters.resource}:*`
+    //   })
+    // })
+    .then(result =>
+      Resource.find({type: result.parameters.resource}))
     .then(searchResults => _.assign({
       searchResults
     }, response))

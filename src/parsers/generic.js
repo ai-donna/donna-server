@@ -24,7 +24,8 @@ class GenericParser {
 
   _format = (response) => _.assign({
     type: _.get(response, 'request.api'),
-    id: _.get(response, 'objects[0].pageUrl')
+    id: _.get(response, 'objects[0].pageUrl'),
+    title: _.get(response, 'objects[0].title')
   }, response)
 
 }

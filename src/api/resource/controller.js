@@ -55,6 +55,7 @@ export const interpret = ({ body }, res, next) => {
         id: response.id,
         body: response
       })
+      .then(esRes => console.log(esRes))
       return response
     })
     .then(success(res))

@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose'
 
-const resourceSchema = new Schema({}, { timestamps: true })
+const resourceSchema = new Schema({}, { timestamps: true, strict: false })
 
 resourceSchema.methods = {
   view (full) {

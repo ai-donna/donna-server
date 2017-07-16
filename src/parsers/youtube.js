@@ -34,8 +34,8 @@ class YoutubeParser extends GenericParser {
     id: response.id,
     type: 'video',
     url,
-    title: _.get(response, 'items[0].title'),
-    summary: _.get(response, 'items[0].description'),
+    title: _.get(response, 'snippet.title'),
+    summary: _.get(response, 'snippet.description'),
     contextualData: {
       image: _.get(response, 'items[0].snippet.thumbnails.high.url'),
       videoUri: url

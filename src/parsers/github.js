@@ -33,6 +33,7 @@ class GithubParser extends GenericParser {
           })
           .catch((err) => console.error(err))
       })
+      .catch((err) => console.error(err))
 
   _format = (response, url) => _.assign({
     type: 'github',

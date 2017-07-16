@@ -32,11 +32,27 @@ const performAction = (response) => {
   switch (response.result.action) {
     case 'resource.search':
       return resourceSearch(response)
+    case 'resource.search.by.topic':
+      return resourceSearchByTopic(response)
     case '':
     default:
       return response
   }
 }
+
+const resourceSearchByTopic = (response) =>
+  Promise.resolve(response.result)
+    // .then(result => {
+    //   return client.search({
+    //     index: 'donna',
+    //     q: `${result.parameters.resource}:*`
+    //   })
+    // })
+    .then(result =>
+      Resource.find({title: {$regex: result.parameters.topic, $options: 'i'}}))
+    .then(searchResults => _.assign({
+      searchResults
+    }, response))
 
 const resourceSearch = (response) =>
   Promise.resolve(response.result)

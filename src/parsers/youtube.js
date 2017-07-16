@@ -16,9 +16,8 @@ class YoutubeParser extends GenericParser {
 
   parse = (url) =>
     Promise.resolve(url)
-      .then(this._getVideoId.bind(this))
-      .then(this._print.bind(this))
-      .then(this._getById.bind(this))
+      .then(this._getVideoId)
+      .then(this._getById)
 
   _getVideoId = (url) =>
     Promise.resolve(url)
@@ -32,7 +31,8 @@ class YoutubeParser extends GenericParser {
       })
 
   _format = (response) => _.assign({
-    type: 'video'
+    type: 'video',
+    title: _.get(response, 'items[0].title')
   }, response)
 }
 

@@ -1,6 +1,7 @@
 import GenericParser from './generic'
 import Promise from 'promise'
 import Twitter from 'twitter'
+import _ from 'lodash'
 
 class TwitterParser extends GenericParser {
   constructor () {
@@ -39,6 +40,12 @@ class TwitterParser extends GenericParser {
     const user_id = this.timelineRegex.exec(url)[1]
     return this.client.get('statuses/user_timeline', {user_id})
   }
+
+  _format = (response) => _.assign({
+    type: 'tweet',
+    id: response.id || _.get(response, '[0].id'),
+    title: response.text || _.get(response, '[0].text')
+  }, response)
 }
 
 export default TwitterParser

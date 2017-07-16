@@ -42,7 +42,7 @@ class TwitterParser extends GenericParser {
   }
 
   _format = (response) => _.assign({
-    type: 'tweet',
+    type: 'post',
     id: response.id || _.get(response, '[0].id'),
     title: response.text || _.get(response, '[0].text')
   }, response)

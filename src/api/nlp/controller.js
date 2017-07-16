@@ -47,7 +47,7 @@ const resourceSearch = (response) =>
     //   })
     // })
     .then(result =>
-      Resource.find({type: result.parameters.resource, title: {$regex: result.parameters.topic}}))
+      Resource.find({type: result.parameters.resource, title: {$regex: result.parameters.topic, $options: 'i'}}))
     .then(searchResults => _.assign({
       searchResults
     }, response))

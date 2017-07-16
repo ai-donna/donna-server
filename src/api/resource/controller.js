@@ -43,7 +43,8 @@ export const destroy = ({ params }, res, next) =>
 export const interpret = ({ body }, res, next) => {
   Promise.resolve(body.url)
     .then(getParser.bind(this))
-    .then((parser) => parser.parse(body.url).then(parser._format))
+    .then((parser) => parser.parse(body.url)
+        .then((parsed) => parser._format(parsed, body.url)))
     .then(response => {
       Resource.create(response)
       return response

@@ -22,10 +22,14 @@ class GenericParser {
     return JSON.stringify(str)
   }
 
-  _format = (response) => _.assign({
+  _format = (response, url) => _.assign({
     type: _.get(response, 'request.api'),
     id: _.get(response, 'objects[0].pageUrl'),
-    title: _.get(response, 'objects[0].title')
+    url,
+    title: _.get(response, 'objects[0].title'),
+    contextualData: {
+      image: _.get(response, 'object[0].images[0].url')
+    }
   }, response)
 
 }

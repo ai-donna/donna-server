@@ -1,6 +1,16 @@
 import mongoose, { Schema } from 'mongoose'
 
-const resourceSchema = new Schema({}, { timestamps: true, strict: false })
+const resourceSchema = new Schema({
+  id: String,
+  type: String,
+  title: String,
+  summary: String,
+  url: String,
+  contextualData: {
+    image: String,
+    videoUri: String
+  }
+}, { timestamps: true })
 
 resourceSchema.methods = {
   view (full) {

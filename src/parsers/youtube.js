@@ -30,10 +30,17 @@ class YoutubeParser extends GenericParser {
         return id
       })
 
-  _format = (response) => _.assign({
+  _format = (response, url) => _.assign({
+    id: response.id,
     type: 'video',
-    title: _.get(response, 'items[0].title')
-  }, response)
+    url,
+    title: _.get(response, 'items[0].title'),
+    summary: _.get(response, 'items[0].description'),
+    contextualData: {
+      image: _.get(response, 'items[0].snippet.thumbnails.high.url'),
+      videoUri: url
+    }
+  })
 }
 
 export default YoutubeParser
